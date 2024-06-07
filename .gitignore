@@ -1,0 +1,33 @@
+#############
+## Windows
+#############
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+*.bat
+
+#############
+## Boats
+#############
+
+Testing/
+bin/
+app/lib/
+node_modules/
+.vscode/
+jsconfig.json
+*.~is
+debug.log
+npm-debug.log
+cache/
+dist/

@@ -1,0 +1,8 @@
+.wy-side-nav-search,
+.wy-nav-top {
+  background-color: #000;
+}
+
+.rst-content li img {
+  margin: 12px 0;
+}
