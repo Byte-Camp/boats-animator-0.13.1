@@ -1,5 +1,7 @@
 # Boats Animator
 
+THIS PROJECT HAS BEEN FORKED FROM CHARLIELEE (you can find links to his work below)
+
 A free stop motion animation program created using Electron for Windows, macOS and Linux.
 
 - **Official homepage:** <https://www.charlielee.uk/boats-animator>
