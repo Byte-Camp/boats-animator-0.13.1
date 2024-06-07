@@ -131,7 +131,11 @@
         // Title for macOS
         message: "Select a directory to save captured frames",
         defaultPath: curDir,
-        properties: ["openDirectory", "createDirectory"]
+        properties: ["openDirectory", "createDirectory"],
+        filters: [
+          { name: 'Images', extensions: ['png'] },
+          { name: 'All Files', extensions: ['*'] }
+        ]
       });
 
       /*if (!result.canceled && result.filePaths[0]) {

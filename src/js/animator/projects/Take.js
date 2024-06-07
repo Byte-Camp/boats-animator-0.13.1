@@ -44,17 +44,6 @@
       console.log(`Created take ${this.takeNumber} with id ${this.uniqueId}`);
     }
 
-    getFormattedDate() {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-    
-      return `${day}${month}${year}${hours}${minutes}`;
-    }
-
     /**
      * TODO - build on code in issue-85 branch
      * Imports frames to the take from a given directory.
@@ -94,7 +83,7 @@
                   self.frameReel.setFrameThumbnail(id, img.src);
 
                   self._updateOnionSkin();
-                  this.exportedFramesPaths.push(filePath);
+                  self.exportedFramesPaths.push(filePath);
                   resolve();
                 } catch (error) {
                   console.error(`Error processing image at ${filePath}:`, error);
@@ -275,6 +264,7 @@
         for (let i = 0; i < self.getTotalFrames(); i++) {
           let oldFilePath = self.exportedFramesPaths[i];
           let newFileName = this.buildFileName(Take.getPaddedFrameNumber(i + 1));
+          console.log(newFileName);
           let newFilePath = `${outputDir}/${newFileName}`;
     
           try {
@@ -360,9 +350,6 @@
      * Makes the file name for a frame with a given id
      * @param {String} frameId The id of the frame (or some clever wildcard thing)
      */
-    /*buildFileName(frameId) {
-      return `ba_${this.uniqueId}_frame_${frameId}.png`;
-    }*/
     buildFileName(frameId) {
       return `ba_${this.uniqueId}_frame_${frameId}.png`;
     }
@@ -371,14 +358,14 @@
      * Converts a frame number into the padded zero format used in file names.
      * @param {Integer} frameNumber The id of the frame to pad
      */
-    /*static getPaddedFrameNumber(frameNumber) {
+    static getPaddedFrameNumber(frameNumber) {
       // Note the massive assumption that no one will capture more than 99999 frames has been made
       let zeros = "00000";
       return `${zeros.substring(0, zeros.length - frameNumber.toString().length)}${frameNumber}`;
-    }*/
-    static getPaddedFrameNumber(frameNumber) {
-      return String(frameNumber).padStart(5, '0');
     }
+    /*static getPaddedFrameNumber(frameNumber) {
+      return String(frameNumber).padStart(5, '0');
+    }*/
   }
 
   module.exports = Take;

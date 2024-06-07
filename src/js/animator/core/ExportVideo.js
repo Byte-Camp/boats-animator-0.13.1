@@ -45,8 +45,8 @@
         <label for="presetSelect">FFmpeg quality preset:</label>
         <br>
         <select id="presetSelect">
-          <option value="veryslow">Very slow</option>
-          <option value="medium" selected>Medium</option>
+          <option value="veryslow" selected>Very slow</option>
+          <option value="medium">Medium</option>
           <option value="veryfast">Very fast</option>
         </select>
 
