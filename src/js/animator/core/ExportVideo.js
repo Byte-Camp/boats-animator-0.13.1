@@ -45,8 +45,8 @@
         <label for="presetSelect">FFmpeg quality preset:</label>
         <br>
         <select id="presetSelect">
-          <option value="veryslow" selected>Very slow</option>
-          <option value="medium">Medium</option>
+          <option value="veryslow">Very slow</option>
+          <option value="medium" selected>Medium</option>
           <option value="veryfast">Very fast</option>
         </select>
 
@@ -165,11 +165,20 @@
             <p>Video was successfully exported to:</p>
             <p><a id="videoExportPathLink" href="#">${exportPath}</a></p>
           `);
+          // // Add a button to open the folder containing the exported video - needs to be styled
+          // <button><a id="videoExportPathButton" href="#">View video in folder</a></button>
+          // 
 
           // Handle clicking said link
           exportCompleteDialog.querySelector("#videoExportPathLink").addEventListener("click", () => {
             shell.showItemInFolder(exportPath);
           });
+
+          // uncomment to add a button to open the folder containing the exported video - button is not styled atm
+          // // add asscociated button for less technical users
+          // exportCompleteDialog.querySelector("#videoExportPathButton").addEventListener("click", () => {
+          //   shell.showItemInFolder(exportPath);
+          // });
         } else {
           // Display whatever the error is
           exportCompleteDialog.insertAdjacentHTML("beforeend", `
