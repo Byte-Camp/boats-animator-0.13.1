@@ -107,6 +107,10 @@
      */
     showConfirmDialog(message) {
       let win = BrowserWindow.getFocusedWindow();
+      if (!win) {
+        win = BrowserWindow.getAllWindows()[0]; // Fallback to the first window
+        win.focus(); // Ensure the window is focused
+      }
       let choice = dialog.showMessageBoxSync(win,
         {
           buttons: ["OK", "Cancel"],
@@ -124,6 +128,10 @@
      */
     async showExportFrameDirDialog() {
       let win = BrowserWindow.getFocusedWindow();
+      if (!win) {
+        win = BrowserWindow.getAllWindows()[0]; // Fallback to the first window
+        win.focus(); // Ensure the window is focused
+      }
       let curDir = this.get("projectDefaults.exportFrameDir");
 
       let result = await dialog.showOpenDialog(win, {
@@ -169,22 +177,30 @@
      * @returns {String} The selected file path, the previous file path is used if the dialog is "cancelled"
      */
     async showExportVideoFilePathDialog(curFilePath) {
-      let win = BrowserWindow.getFocusedWindow();
+      // let win = BrowserWindow.getFocusedWindow();
+      // if (!win) {
+      //   win = BrowserWindow.getAllWindows()[0]; // Fallback to the first window
+      //   win.focus(); // Ensure the window is focused
+      // }
+      // console.log("All possible windows", BrowserWindow.getAllWindows()); // Debugging log  
+      // console.log("Focused window:", win); // Debugging log
+      // console.log("Current file path:", curFilePath); // Debugging log
 
-      let result = await dialog.showSaveDialog(win, {
-        title: "Select the location to save the exported video file",
-        // Title for macOS
-        message: "Select the location to save the exported video file",
-        defaultPath: curFilePath,
-        properties: ["createDirectory", "showOverwriteConfirmation"]
-      });
+      // let result = await dialog.showSaveDialog(win, {
+      //   title: "Select the location to save the exported video file",
+      //   // Title for macOS
+      //   message: "Select the location to save the exported video file",
+      //   defaultPath: curFilePath,
+      //   properties: ["createDirectory", "showOverwriteConfirmation"]
+      // });
 
-      if (!result.canceled && result.filePath) {
-        return result.filePath;
-      } else {
-        // Return the current export dir if a new one isn't set
-        return curFilePath;
-      }
+      // if (!result.canceled && result.filePath) {
+      //   return result.filePath;
+      // } else {
+      //   // Return the current file path if a new one isn't set
+      //   return curFilePath;
+      // }
+      return curFilePath; // For now, just return the current file path
     }
   }
 
