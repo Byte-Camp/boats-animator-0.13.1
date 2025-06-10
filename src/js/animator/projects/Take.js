@@ -54,60 +54,57 @@
       const path = require('path');
       var self = this;
     
-      return new Promise((resolve, reject) => {
-        fs.readdir(dirPath, (err, files) => {
-          if (err) return reject(err);
-          files = files.filter(file => /\.(jpg|jpeg|png)$/.test(file));
-    
-          if (files.length === 0) {
-            return reject('No image files found in the directory.');
-          }
-    
-          const loadPromises = files.map((file, index) => {
-            return new Promise((resolve, reject) => {
+      fs.readdir(dirPath, (err, files) => {
+        if (err) return reject(err);
+        files = files.filter(file => /\.(jpg|jpeg|png)$/.test(file));
+  
+        if (files.length === 0) {
+          return reject('No image files found in the directory.');
+        }
+        
+        console.log("Files before sort: ", files);
+        files.sort(new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' }).compare);
+        console.log("Files after sort: ", files);
+
+        const loadImagesSynchronously = (files, dirPath) => {
+          const capturedFrames = [];
+          const exportedFramesPaths = [];
+      
+          // Synchronous loading loop
+          for (let i = 0; i < files.length; i++) {
+              const file = files[i];
               const filePath = path.join(dirPath, file);
+      
+              // Create a new Image object
               const img = new Image();
+      
+              // Set src attribute synchronously
               img.src = filePath;
-    
-              img.onload = () => {
-                try {
-                  // Store the image data
-                  self.capturedFrames.push(img);
-                  var id = self.getTotalFrames();
-                  console.info(`Captured frame: ${id}`);
+      
+              // Push the image to capturedFrames array
+              capturedFrames.push(img);
+      
+              // Store exported frame paths
+              exportedFramesPaths.push(filePath);
 
-                  // Update status bar and frame reel
-                  StatusBar.setTotalFrames(id);
-                  StatusBar.setCurrentFrame(id + 1);
-                  self.frameReel.addFrame(id, img.src);
-                  self.frameReel.setFrameThumbnail(id, img.src);
+              self.capturedFrames.push(img);
+              var id = self.getTotalFrames();
+              console.info(`Captured frame: ${id} at ${filePath}`);
 
-                  self._updateOnionSkin();
-                  self.exportedFramesPaths.push(filePath);
-                  resolve();
-                } catch (error) {
-                  console.error(`Error processing image at ${filePath}:`, error);
-                  reject(`Error processing image at ${filePath}`);
-                }
-              };
-    
-              img.onerror = (error) => {
-                console.error(`Failed to load image at ${filePath}:`, error);
-                reject(`Failed to load image at ${filePath}`);
-              };
-            });
-          });
-    
-          Promise.all(loadPromises)
-            .then(() => {
-              console.log(this.getTotalFrames());
-              console.log(this.capturedFrames);
-              resolve(`Imported ${files.length} frames.`);
-            })
-            .catch((error) => {
-              reject(error);
-            });
-        });
+              // Update status bar and frame reel
+              StatusBar.setTotalFrames(id);
+              StatusBar.setCurrentFrame(id + 1);
+              self.frameReel.addFrame(id, img.src);
+              self.frameReel.setFrameThumbnail(id, img.src);
+
+              self._updateOnionSkin();
+              self.exportedFramesPaths.push(filePath);
+          }
+      
+          // Return captured frames and paths
+          return { capturedFrames, exportedFramesPaths };
+        };
+        const { capturedFrames, exportedFramesPaths } = loadImagesSynchronously(files, dirPath);
       });
     }
 
