@@ -107,7 +107,7 @@
      */
     showConfirmDialog(message) {
       let win = BrowserWindow.getFocusedWindow();
-      let choice = dialog.showMessageBoxSync(win,
+      let choice = dialog.showMessageBox(win,
         {
           buttons: ["OK", "Cancel"],
           title: "Boats Animator",
@@ -124,7 +124,6 @@
      */
     async showExportFrameDirDialog() {
       let win = BrowserWindow.getFocusedWindow();
-      win.setAlwaysOnTop(true);
       let curDir = this.get("projectDefaults.exportFrameDir");
 
       let result = await dialog.showOpenDialog(win, {
@@ -190,7 +189,6 @@
      */
     async showExportVideoFilePathDialog(curFilePath) {
       let win = BrowserWindow.getFocusedWindow();
-      win.setAlwaysOnTop(true);
 
       let result = await dialog.showSaveDialog(win, {
         title: "Select the location to save the exported video file",

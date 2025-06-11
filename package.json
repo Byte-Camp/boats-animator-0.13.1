@@ -30,7 +30,7 @@
     "sweetalert": "^2.1.2"
   },
   "devDependencies": {
-    "electron": "22.3.2",
+    "electron": "^36.4.0",
     "electron-builder": "^24.13.3"
   }
 }

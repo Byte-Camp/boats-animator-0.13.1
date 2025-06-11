@@ -125,12 +125,12 @@
               accelerator: self._getAccelerator("animator.audioToggle"),
               registerAccelerator: false,
             },
-            {
+            /*{
               label: "Change Capture Destination",
               click: function () {
                 self._sendClickEvent("openDirChooseDialog");
               },
-            },
+            },*/
           ],
         },
         // Playback
