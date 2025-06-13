@@ -171,6 +171,7 @@
      */
     deleteCurrentSelectedFrame() {
       if (this.currentTake.frameReel.curSelectedFrame) {
+        console.log("Delete current frame", this.currentTake.frameReel.curSelectedFrame);
         this._deleteFrame(this.currentTake.frameReel.curSelectedFrame);
       } else {
         this.undoFrame();
@@ -210,10 +211,10 @@
               this.currentTake.saveDirPath = folderPath;
             }
             this.currentTake.importFrames(folderPath).then((message) => {
-            console.log(message);
-          }).catch((error) => {
-            console.error(error);
-          });
+              console.log(message);
+            }).catch((error) => {
+              console.error(error);
+            });
         }
       }
     }
@@ -244,9 +245,13 @@
           .then((response) => {
             if (response) {
               // Remove the frame from the take
+              console.log("Removing frame");
               this.currentTake.deleteFrame(id);
               this.setCurrentMode("capture");
               console.info(`Total frames captured: ${this.currentTake.getTotalFrames()}`);
+            }
+            else{
+              console.log(response);
             }
           });
       } else {

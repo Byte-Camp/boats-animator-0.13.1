@@ -105,16 +105,19 @@
      * @param {String} message The text to display in the dialog box
      * @returns {Boolean} Returns true if OK is pressed, false if cancelled
      */
-    showConfirmDialog(message) {
+    async showConfirmDialog(message) {
+      //console.log("Clicked");
       let win = BrowserWindow.getFocusedWindow();
-      let choice = dialog.showMessageBox(win,
+      let choice = await dialog.showMessageBox(win,
         {
           buttons: ["OK", "Cancel"],
           title: "Boats Animator",
-          message: message
+          message: message,
+          defaultId: 0,
+          cancelId: 1,
         });
 
-      return choice === 0;
+      return choice.response === 0;
     }
 
     /**

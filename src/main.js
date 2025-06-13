@@ -60,7 +60,7 @@ ipcMain.handle("settings:check-for-camera-access", async (e) => {
 
 // Display a confirm dialog with the given message
 ipcMain.handle("settings:show-confirm-dialog", async (e, message) => {
-  return settings.showConfirmDialog(message);
+  return await settings.showConfirmDialog(message);
 });
 
 // Get the value of a setting with a given name
